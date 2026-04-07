@@ -1,6 +1,5 @@
 import jax
 import jax.numpy as jnp
-import numpy as np
 
 from jaxlpips.utils import load_model
 
@@ -31,7 +30,7 @@ class LPIPS:
             )
             for ref_ft, tgt_ft, w in zip(ref_feats, tgt_feats, self.linear_weights, strict=True)
         ]
-        dist_score = np.sum(layer_dists, axis=0)
+        dist_score = jnp.sum(jnp.stack(layer_dists, axis=0), axis=0)
         return dist_score
 
 
